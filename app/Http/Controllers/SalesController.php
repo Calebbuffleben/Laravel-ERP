@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Sale;
+use App\Models\Sale;
 
 class SalesController extends Controller {
 
@@ -21,7 +21,7 @@ class SalesController extends Controller {
     }
     public function add() {
         $title = 'Adicionar';
-        return view('sales_add_edit', compact('title'));
+        return view('sales.sales_add_edit', compact('title'));
     }
 
     public function store(Request $request) {
@@ -34,7 +34,7 @@ class SalesController extends Controller {
         $insert = $this->sale->insert($data);
 
         if ($insert) {
-            return 'Inserido com sucesso';
+            redirect ('/sales');
         } else {
             return 'Falha ao inserir';
         }

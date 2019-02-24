@@ -7,6 +7,6 @@ use Illuminate\Http\Request;
 class PermissionsController extends Controller
 {
     public function index(){
-        return view('permissions');
+        return view('permissions.permissions');
     }
 }

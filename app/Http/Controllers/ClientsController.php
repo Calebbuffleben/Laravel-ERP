@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Client;
+use App\Models\Client;
 
 class ClientsController extends Controller {
 
@@ -17,12 +17,12 @@ class ClientsController extends Controller {
     public function index() {
           $user = Auth::user()->id_company;
           $clients = $this->client->where('id_company', $user)->paginate(5);
-          return view('clients')->with('clients', $clients);  
+          return view('clients.clients')->with('clients', $clients);  
     }
 
     public function add() {
         $title = 'Adicionar';
-        return view('clients_add_edit', compact('title'));
+        return view('clients.clients_add_edit', compact('title'));
     }
 
     public function store(Request $request) {
@@ -36,7 +36,7 @@ class ClientsController extends Controller {
         $insert = $this->client->insert($data);
 
         if ($insert) {
-            return 'Inserido com sucesso';
+            redirect('/clients');
         } else {
             return 'Falha ao inserir';
         }
@@ -46,7 +46,7 @@ class ClientsController extends Controller {
         $client = $this->client->find($id);
         $title = 'Editar';
 
-        return view('clients_add_edit', compact('client', 'title'));
+        return view('clients.clients_add_edit', compact('client', 'title'));
     }
 
     public function update(Request $request, $id) {
@@ -55,7 +55,7 @@ class ClientsController extends Controller {
         $update = $client->update($data);
 
         if ($update) {
-            return "Editado com sucesso";
+            redirect('/clients');
         } else {
             return "Falha ao editar";
         }
@@ -65,7 +65,7 @@ class ClientsController extends Controller {
         $client = $this->client->find($id);
         $title = $client->name;
 
-        return view('client_show', compact('client', 'title'));
+        return view('clients.client_show', compact('client', 'title'));
     }
 
     public function destroy($id) {
@@ -73,7 +73,7 @@ class ClientsController extends Controller {
             $client = $this->client->find($id);
             $delete = $client->delete();
             if ($delete) {
-                return "Deletado com sucesso";
+                redirect('/clients');
             } else {
                 return "Não foi possível deletar";
             }

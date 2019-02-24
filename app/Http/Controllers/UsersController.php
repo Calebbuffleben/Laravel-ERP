@@ -17,12 +17,12 @@ class UsersController extends Controller {
     public function index() {
         $user_id_company = Auth::user()->id_company;
         $user = $this->user->where('id_company', $user_id_company)->paginate(5);
-        return view('users', compact('user'));
+        return view('users.users', compact('user'));
     }
 
     public function add() {
         $title = 'Adicionar';
-        return view('users_add_edit', compact('title'));
+        return view('users.users_add_edit', compact('title'));
     }
 
     public function store(Request $request) {
@@ -35,7 +35,7 @@ class UsersController extends Controller {
         $insert = $this->user->insert($data);
 
         if ($insert) {
-            return 'Inserido com sucesso';
+            redirect ('/users');
         } else {
             return 'Falha ao inserir';
         }
@@ -45,7 +45,7 @@ class UsersController extends Controller {
         $user = $this->user->find($id);
         $title = 'Editar';
 
-        return view('users_add_edit', compact('user', 'title'));
+        return view('users.users_add_edit', compact('user', 'title'));
     }
 
     public function update(Request $request, $id) {
@@ -54,7 +54,7 @@ class UsersController extends Controller {
         $update = $user->update($data);
 
         if ($update) {
-            return "Editado com sucesso";
+            redirect ('/users');
         } else {
             return "Falha ao editar";
         }
@@ -65,7 +65,7 @@ class UsersController extends Controller {
             $user = $this->user->find($id);
             $delete = $user->delete();
             if ($delete) {
-                return "Deletado com sucesso";
+                redirect ('/users');
             } else {
                 return "Não foi possível deletar";
             }

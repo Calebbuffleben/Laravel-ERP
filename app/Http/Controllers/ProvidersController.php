@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Provider;
+use App\Models\Provider;
 
 class ProvidersController extends Controller {
 
@@ -16,12 +16,12 @@ class ProvidersController extends Controller {
 
     public function index() {
         $providers = $this->provider->paginate(5);
-        return view('providers', compact('providers'));
+        return view('providers.providers', compact('providers'));
     }
 
     public function add() {
         $title = 'Adicionar';
-        return view('providers_add_edit', compact('title'));
+        return view('providers.providers_add_edit', compact('title'));
     }
 
     public function store(Request $request) {
@@ -34,7 +34,7 @@ class ProvidersController extends Controller {
         $insert = $this->provider->insert($data);
 
         if ($insert) {
-            return 'Inserido com sucesso';
+            redirect('/providers');
         } else {
             return 'Falha ao inserir';
         }
@@ -44,7 +44,7 @@ class ProvidersController extends Controller {
         $provider = $this->provider->find($id);
         $title = 'Editar';
 
-        return view('providers_add_edit', compact('provider', 'title'));
+        return view('providers.providers_add_edit', compact('provider', 'title'));
     }
 
     public function update(Request $request, $id) {
@@ -53,7 +53,7 @@ class ProvidersController extends Controller {
         $update = $provider->update($data);
 
         if ($update) {
-            return "Editado com sucesso";
+            redirect('/providers');
         } else {
             return "Falha ao editar";
         }
@@ -64,7 +64,7 @@ class ProvidersController extends Controller {
             $provider = $this->provider->find($id);
             $delete = $provider->delete();
             if ($delete) {
-                return "Deletado com sucesso";
+                redirect('/providers');
             } else {
                 return "Não foi possível deletar";
             }

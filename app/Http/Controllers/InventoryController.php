@@ -4,14 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Inventory;
 
 class InventoryController extends Controller {
 
     private $inventory;
 
-    public function __construct(Inventory $inventory) {
-        $this->inventory = $inventory;
+    public function __construct() {
+        $this->inventory = app('inventory');
     }
 
     public function index() {

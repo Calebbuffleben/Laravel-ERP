@@ -11,13 +11,13 @@ class SalesController extends Controller {
     private $sale;
 
     public function __construct(Sale $sale) {
-        $this->sale = $sale;
+        $this->sale = app('sale');
     }
 
     public function index() {
         $user = Auth::user()->id_company;
         $sales = $this->sale->where('id_company', $user)->paginate(10);
-        return view('sales')->with('sales_list', $sales);
+        return view('sales.sales')->with('sales_list', $sales);
     }
     public function add() {
         $title = 'Adicionar';

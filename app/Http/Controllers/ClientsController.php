@@ -4,14 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Client;
 
 class ClientsController extends Controller {
 
-    private $client;
-
-    public function __construct(Client $client) {
-        $this->client = $client;
+    public function __construct() {
+        $this->client = app('client');
     }
 
     public function index() {

@@ -4,14 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Models\Provider;
 
 class ProvidersController extends Controller {
 
     private $provider;
 
-    public function __construct(Provider $provider) {
-        $this->provider = $provider;
+    public function __construct() {
+        $this->provider = app('provider');
     }
 
     public function index() {
